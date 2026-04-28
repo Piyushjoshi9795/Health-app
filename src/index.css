@@ -1,0 +1,192 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg-primary: #080d1a;
+    --bg-secondary: #0e1628;
+    --bg-card: #111827;
+    --bg-card-hover: #151f30;
+    --border: rgba(255,255,255,0.07);
+    --border-active: rgba(99,179,237,0.3);
+    --text-primary: #f0f4f8;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    --accent: #38bdf8;
+    --accent-dim: rgba(56,189,248,0.15);
+    --success: #34d399;
+    --warning: #fbbf24;
+    --danger: #f87171;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background: var(--bg-primary);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.1);
+    border-radius: 2px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255,255,255,0.2);
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply rounded-2xl border backdrop-blur-sm;
+    background: var(--bg-card);
+    border-color: var(--border);
+    transition: all 0.2s ease;
+  }
+
+  .glass-card:hover {
+    background: var(--bg-card-hover);
+    border-color: rgba(255,255,255,0.1);
+  }
+
+  .btn-primary {
+    @apply relative overflow-hidden rounded-xl px-6 py-3 font-body font-medium text-sm;
+    background: linear-gradient(135deg, #0ea5e9, #38bdf8);
+    color: #fff;
+    transition: all 0.2s ease;
+    box-shadow: 0 0 24px rgba(56,189,248,0.25);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 0 36px rgba(56,189,248,0.4);
+  }
+
+  .btn-primary:active {
+    transform: translateY(0);
+  }
+
+  .btn-ghost {
+    @apply rounded-xl px-4 py-2 font-body font-medium text-sm;
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+    background: transparent;
+    transition: all 0.2s ease;
+  }
+
+  .btn-ghost:hover {
+    background: rgba(255,255,255,0.05);
+    border-color: rgba(255,255,255,0.15);
+    color: var(--text-primary);
+  }
+
+  .input-field {
+    @apply w-full rounded-xl px-4 py-3 text-sm font-body outline-none transition-all;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+  }
+
+  .input-field::placeholder {
+    color: var(--text-muted);
+  }
+
+  .input-field:focus {
+    border-color: var(--border-active);
+    background: rgba(56,189,248,0.05);
+    box-shadow: 0 0 0 3px rgba(56,189,248,0.1);
+  }
+
+  .stat-card {
+    @apply glass-card p-5 flex flex-col gap-3;
+  }
+
+  .page-enter {
+    animation: pageEnter 0.4s ease forwards;
+  }
+
+  @keyframes pageEnter {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .shimmer {
+    background: linear-gradient(90deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.07) 50%, rgba(255,255,255,0.03) 100%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  .toggle-switch {
+    @apply relative inline-flex h-6 w-11 cursor-pointer rounded-full transition-colors duration-200;
+  }
+
+  .toggle-switch-thumb {
+    @apply absolute top-0.5 left-0.5 h-5 w-5 rounded-full bg-white shadow transition-transform duration-200;
+  }
+
+  .sidebar-link {
+    @apply flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-150;
+    color: var(--text-secondary);
+  }
+
+  .sidebar-link:hover {
+    background: rgba(255,255,255,0.05);
+    color: var(--text-primary);
+  }
+
+  .sidebar-link.active {
+    background: var(--accent-dim);
+    color: var(--accent);
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    background: linear-gradient(135deg, #38bdf8, #818cf8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .bg-noise {
+    position: relative;
+  }
+
+  .bg-noise::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .glow-blue {
+    box-shadow: 0 0 40px rgba(56,189,248,0.15);
+  }
+}
