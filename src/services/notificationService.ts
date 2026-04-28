@@ -29,7 +29,7 @@ export const notificationService = {
         badge: '/favicon.svg',
         tag: tag || 'pulseos',
         vibrate: [200, 100, 200],
-      });
+      } as NotificationOptions & { vibrate: number[] });
     } catch {
       // Fallback: in-browser notification
       new Notification(title, { body, icon: '/favicon.svg' });
